@@ -1,0 +1,31 @@
+<div id="main">
+  <%= image_tag 'main-img.jpg' %>
+</div>
+
+<div id="article_wrap">
+  <div id="article_list">
+    <% @articles.each do |article| %>
+      <div>
+        <h2><%= link_to(article.title, "/articles/#{article.id}") %></h2>
+        <p><%= article.created_at.strftime('%Y/%m/%d') %></p>
+        <% if user_signed_in? %>
+          <p>
+            <%= link_to("編集", "/articles/#{article.id}/edit") %>
+            <%= link_to("削除", "/articles/#{article.id}", method: :delete, data: { confirm: '削除してもよろしいですか？'}) %>
+          </p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="sidebar">
+    <h2>★PV数ランキング</h2>
+    <% @ranking_articles.each do |article| %>
+    <ul>
+      <li><%= link_to(article.title, "/articles/#{article.id}") %><span> (<%= REDIS.get "/articles/#{article.id}" %>PV) </span></li>
+    </ul>
+    <% end %>
+  </div>
+
+  <div class="clear"></div>
+</div>

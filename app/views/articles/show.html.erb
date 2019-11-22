@@ -1,0 +1,27 @@
+<div id="title">
+  <div>
+    <p>
+      <%= @article.created_at.strftime('%Y/%m/%d') %>
+      <span>書いた人：<%= @article.user.email %></span>
+    </p>
+    <h1><%= @article.title %></h1>
+  </div>
+</div>
+
+<div id="article_wrap">
+  <div id="content">
+    <p><%= simple_format @article.content %></p>
+  </div>
+
+  <div id="sidebar">
+    <h2>★PV数ランキング</h2>
+    <% @ranking_articles.each do |article| %>
+    <ul>
+      <li><%= link_to(article.title, "/articles/#{article.id}") %><span> (<%= REDIS.get "/articles/#{article.id}" %>PV) </span></li>
+    </ul>
+    <% end %>
+  </div>
+  
+  <div class="clear"></div>
+    
+</div>

@@ -1,0 +1,17 @@
+<div class="adjustment">
+  <%= form_for @article, url: article_path(@article) do |f| %>
+    <br>
+    <p>タイトル</p>
+    <%= f.text_field :title %>
+    <br>
+    <br>
+    <p>記事内容</p>
+    <%= f.text_area :content %>
+    <br>
+    <br>
+    <%= f.submit "Update Article" %>
+    <br>
+    <br>
+    <br>
+  <% end %>
+</div>
